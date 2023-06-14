@@ -1,5 +1,6 @@
 const express = require('express');
-const { crearUsuario, loginUsuario } = require('../controllers/auth');
+const nodemailer = require('nodemailer');
+const { crearUsuario, loginUsuario, validarCorreo } = require('../controllers/auth');
 const { check } = require('express-validator');
 const { validarCampos } = require('../Midelwares/validarCampos');
 const routerAuth= express.Router();
@@ -23,5 +24,16 @@ routerAuth.post('/login',
                 validarCampos
 
 ],loginUsuario);
+
+
+//para enviar email
+routerAuth.post('/validar_email', 
+[ //cuando usamos varios midelwar van dentro de corchetes verifican que los campos existan y despues va recien el validar
+    
+                check("email","el email es obligatorio").not().isEmpty(),
+                validarCampos
+
+],validarCorreo);
+
 
 module.exports=routerAuth;

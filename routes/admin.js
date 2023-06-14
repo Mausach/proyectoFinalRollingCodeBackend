@@ -1,5 +1,5 @@
 const express = require('express');
-const { crearProducto, editarProducto, eliminarProducto, cargarProducto } = require('../controllers/admin');
+const { crearProducto, editarProducto, eliminarProducto, cargarProducto, cargarUsuarios, cargarPedidos, confirmarPedido, inhabilitarUsuario } = require('../controllers/admin');
 
 const { check } = require('express-validator');
 const { validarCampos } = require('../Midelwares/validarCampos');
@@ -13,6 +13,8 @@ routerAdmin.post(
     check("name","el nombre es obligatorio").not().isEmpty(),
        check("precio","el precio es obligatorio").not().isEmpty(),
          check("cantidad","la cantidad es obligatoria").not().isEmpty(),
+          check("detalle","el detalle es obligatorio").not().isEmpty(),
+            check("categoria","la categoria es obligatoria").not().isEmpty(),
                validarCampos,
 
                 
@@ -20,33 +22,34 @@ routerAdmin.post(
 ], crearProducto
 );
 
+
+
 routerAdmin.put(
   '/edit',[ //la ruta seria /admin/edit para editar productos
 
   check("name","el nombre es obligatorio").not().isEmpty(),
-     check("precio","el precio es obligatorio").not().isEmpty(),
-       check("cantidad","la cantidad es obligatoria").not().isEmpty(),
-             validarCampos,
+       check("precio","el precio es obligatorio").not().isEmpty(),
+         check("cantidad","la cantidad es obligatoria").not().isEmpty(),
+          check("detalle","el detalle es obligatorio").not().isEmpty(),
+            check("categoria","la categoria es obligatoria").not().isEmpty(),
+               validarCampos,
 
               
 
 ], editarProducto
 );
 
-routerAdmin.delete(
-  '/delete',[ //la ruta seria /admin/delete para borrar productos
+routerAdmin.delete('/eliminar/:id', eliminarProducto);
 
-  check("name","el nombre es obligatorio").not().isEmpty(),
-     check("precio","el precio es obligatorio").not().isEmpty(),
-       check("cantidad","la cantidad es obligatoria").isEmpty(),
-             validarCampos,
+routerAdmin.get( '/productos', cargarProducto);
 
-              
+routerAdmin.get( '/usuarios', cargarUsuarios);
 
-], eliminarProducto
-)
+routerAdmin.get( '/pedidos', cargarPedidos);
 
-routerAdmin.get( '/', cargarProducto);
+routerAdmin.put('/confirmar', confirmarPedido);
+
+routerAdmin.put('/Deshabilitar', inhabilitarUsuario);
 
 
 //aclaras que se exporta todo lo trabajado con router

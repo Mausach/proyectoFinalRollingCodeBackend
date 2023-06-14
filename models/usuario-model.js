@@ -17,6 +17,12 @@ const usuarioSchema = Schema({//aquia claramos los datos que se van a tomar
         require:true,
     },
 
+    estado:{
+        type:String,
+        default:'activo',
+    },
+
+
     rol:{
         type: String,
         default:'usuario',

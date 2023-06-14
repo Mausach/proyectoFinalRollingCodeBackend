@@ -3,6 +3,7 @@ const bcryptjs= require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const Usuario = require('../models/usuario-model');
 
+
 const crearUsuario = async (req,res)=>{
 
   const {name, email,password}=req.body;
@@ -57,7 +58,7 @@ const loginUsuario = async (req,res)=>{
         if(!user){
             return res.status(400).json({
                 ok:false,
-                msg:"no hay nadie registrado con este email"
+                msg:"el email o la contraseña no son validas"
             })
         }
 
@@ -66,7 +67,7 @@ const loginUsuario = async (req,res)=>{
         if(!validarpassword){
             return res.status(400).json({
                 ok: false,
-                msg: 'contraseña incorrecta'
+                msg: 'el email o la contraseña no son validas'
             });
         }
 
@@ -87,12 +88,11 @@ const loginUsuario = async (req,res)=>{
             rol:user.rol,
             token,
             msg: 'el usario se logueo',
-            
         });
 
     } catch (error) {
         console.log(error);
-        res.status().json({
+        res.status(500).json({
             ok:false,
             msg:"por favor contactarse cono  el administrador"
         })
@@ -100,7 +100,44 @@ const loginUsuario = async (req,res)=>{
     
 }
 
+
+const validarCorreo = async (req,res) => {
+    const {email}=req.body;
+
+    try {
+
+        let user=await Usuario.findOne({email})
+
+        if(!user){
+            return res.status(400).json({
+                ok:false,
+                msg:"el email ingresado no esta registrado"
+            })
+        }
+
+        res.status(200).json({
+            ok: true,
+            email:user.email,
+            server_id:process.env.EMAIL_SERVICE_ID,
+            template_id:process.env.TEMPLATE_ID,
+            public_key:process.env.PUBLIC_KEY,
+            msg: 'se valido el email',
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok:false,
+            msg:"por favor contactarse cono  el administrador"
+        })
+        
+    }
+
+    
+  };
+
 module.exports={
     crearUsuario,
     loginUsuario,
+    validarCorreo,
 };
