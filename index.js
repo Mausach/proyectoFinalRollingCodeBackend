@@ -28,6 +28,12 @@ app.use("/auth",require('./routes/auth'))
 //para el admin
 app.use("/admin",require('./routes/admin'))
 
+//para la tienda en este caso de menus
+app.use("/tienda",require('./routes/tienda'))
+
+//para aplicar mercadopago
+app.use("/payment",require('./routes/payment'))
+
 
 //app.listen(process.env.PORT),()=>{
   //  console.log('server corriendo en puerto 4k');

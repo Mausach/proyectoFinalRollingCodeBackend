@@ -1,6 +1,5 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
-const { crearUsuario, loginUsuario, validarCorreo } = require('../controllers/auth');
+const { crearUsuario, loginUsuario, validarCorreo, RestablecerPassword } = require('../controllers/auth');
 const { check } = require('express-validator');
 const { validarCampos } = require('../Midelwares/validarCampos');
 const routerAuth= express.Router();
@@ -34,6 +33,15 @@ routerAuth.post('/validar_email',
                 validarCampos
 
 ],validarCorreo);
+
+//para restablecer la contraseña
+routerAuth.put('/Restablecer', [
+
+    check("email","el email es obligatorio").not().isEmpty(),
+    check("password","la pasword es obligatoria").not().isEmpty(),
+    validarCampos
+    
+], RestablecerPassword);
 
 
 module.exports=routerAuth;

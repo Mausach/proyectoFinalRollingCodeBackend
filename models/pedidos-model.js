@@ -8,12 +8,29 @@ const pedidosSchema = Schema({
     },
     fecha:{
         type: String,
-        default:'que se yo'
+        require:true,
+    },
+
+    hora:{
+        type: String,
+        require:true,
     },
 
     menu:{
-        type:String,
-        require:true,
+        type:[
+            {
+              id: { type: String, required: true },
+              cantidad: { type: Number, required: true },
+              name: { type: String, required: true },
+              precio: { type: Number, required: true },
+            },
+          ],
+          required: true,
+    },
+
+    precio_total:{
+        type: Number,
+        require: true,
     },
 
     estado:{

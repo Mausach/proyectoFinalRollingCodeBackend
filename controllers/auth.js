@@ -84,6 +84,7 @@ const loginUsuario = async (req,res)=>{
         res.status(200).json({
             ok: true,
             id:user._id,
+            email:user.email,
             name: user.name,
             rol:user.rol,
             token,
@@ -132,12 +133,64 @@ const validarCorreo = async (req,res) => {
         })
         
     }
-
-    
   };
+
+  const RestablecerPassword = async (req, res) => {
+
+    const {email, password}=req.body;
+
+    try {
+        
+        let user=await Usuario.findOne({email})
+
+        if(!user){
+            return res.status(400).json({
+                ok:false,
+                msg:"el correo electronico no es valido"
+            })
+        }
+
+        //generar nuestro JWT
+        const payload ={
+            id: user._id,
+            name: user.name,
+        };
+        
+        const token=jwt.sign(payload,process.env.SECRET_JWT,{
+            expiresIn:"20h",
+        });
+
+        res.status(200).json({
+            ok: true,
+            id:user._id,
+            name: user.name,
+            rol:user.rol,
+            token,
+            msg: 'ah cambiado su contraseña',
+        });
+
+        //encriptacion de contraseñas
+      const salt=bcryptjs.genSaltSync(10);
+      user.password= bcryptjs.hashSync(password,salt);
+
+        await user.save();
+
+        res.status(200).json({
+            ok: true,
+            msg: 'ah cambiado su contraseña',
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'hable con el administrador',
+        });
+    }
+};
 
 module.exports={
     crearUsuario,
     loginUsuario,
     validarCorreo,
+    RestablecerPassword,
 };
