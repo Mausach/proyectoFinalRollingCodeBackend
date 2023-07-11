@@ -1,43 +1,43 @@
-const {model, Schema}=require('mongoose');
+const { model, Schema } = require('mongoose');
 
 const pedidosSchema = Schema({
-    usuario:{
+    usuario: {
         type: String,
         require: true,
 
     },
-    fecha:{
+    fecha: {
         type: String,
-        require:true,
+        require: true,
     },
 
-    hora:{
+    hora: {
         type: String,
-        require:true,
+        require: true,
     },
 
-    menu:{
-        type:[
+    menu: {
+        type: [
             {
-              id: { type: String, required: true },
-              cantidad: { type: Number, required: true },
-              name: { type: String, required: true },
-              precio: { type: Number, required: true },
+                id: { type: String, required: true },
+                cantidad: { type: Number, required: true },
+                name: { type: String, required: true },
+                precio: { type: Number, required: true },
             },
-          ],
-          required: true,
+        ],
+        required: true,
     },
 
-    precio_total:{
+    precio_total: {
         type: Number,
         require: true,
     },
 
-    estado:{
-        type:String,
-        default:'pendiente',
+    estado: {
+        type: String,
+        default: 'pendiente',
     },
 
 });
 
-module.exports=model('Pedido',pedidosSchema);
+module.exports = model('Pedido', pedidosSchema);

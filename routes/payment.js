@@ -1,19 +1,12 @@
 const express = require('express');
-const { check } = require('express-validator');
-const { validarCampos } = require('../Midelwares/validarCampos');
-const { crearOrden, completado, verificarPago,  } = require('../controllers/payment');
+const { crearOrden, completado, verificarPago, } = require('../controllers/payment');
+const { validarJWT } = require('../Midelwares/validarJwt');
 
-const routerPayment= express.Router();
+const routerPayment = express.Router();
 
-routerPayment.post('/crear-orden', crearOrden);
-
-routerPayment.get('/success', completado);
-routerPayment.get('/failure', completado);
-routerPayment.get('/pending', completado);
-
-routerPayment.post('/webhook', verificarPago);
+routerPayment.post('/crear-orden', validarJWT, crearOrden);
 
 //routerPayment.get('/webhook', webHook);
 
 
-module.exports=routerPayment;
+module.exports = routerPayment;
