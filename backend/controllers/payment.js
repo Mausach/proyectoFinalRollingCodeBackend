@@ -39,9 +39,9 @@ const crearOrden = async (req, res) => {
                     unit_price: pedido.precio_total,  // Reemplaza con la propiedad correspondiente del producto
                 }],
                 back_urls: {
-                    success: "http://localhost:3000/tienda",//aqui podria llevar a una seccion en el front donde muestre un resumen o una factura generada por el negocio
-                    failure: "http://localhost:3000/home",
-                    pending: "http://localhost:3000/home",
+                    success: "https://el-buen-comer.netlify.app/tienda",//aqui podria llevar a una seccion en el front donde muestre un resumen o una factura generada por el negocio
+                    failure: "https://el-buen-comer.netlify.app/",
+                    pending: "https://el-buen-comer.netlify.app/",
                 },
                 auto_return: "approved",
                 statement_descriptor: "MENUS",
