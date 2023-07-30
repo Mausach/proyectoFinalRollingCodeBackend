@@ -13,7 +13,7 @@ const validarJWTAdmin = (req, res, next) => {
 
     try {
         const payload = jwt.verify(token, process.env.SECRET_JWT);
-        if (payload.usuario === 'usuario') {
+        if (payload.rol === 'usuario') {
             return res.status(404).json({
                 ok: false,
                 msg: 'usuario no tiene rol admin',
@@ -22,7 +22,7 @@ const validarJWTAdmin = (req, res, next) => {
 
         req.id = payload.id;
         req.name = payload.name;
-        req.rol = payload.usuario;
+        req.rol = payload.rol;
     } catch (error) {
         return res.status(401).json({
             ok: false,
