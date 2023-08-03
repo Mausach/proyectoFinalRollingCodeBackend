@@ -16,7 +16,7 @@ const validarJWTAdmin = (req, res, next) => {
         if (payload.rol != 'admin') {
             return res.status(404).json({
                 ok: false,
-                msg: 'usuario no tiene rol admin',
+                msg: 'usted no tiene rol de administrador',
             });
         }
 
