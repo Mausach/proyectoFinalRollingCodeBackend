@@ -1,6 +1,6 @@
 # El Buen Comer  - SPA (Deployado y Responsivo)
 
-► Deploy Frontendhttps: //el-buen-comer-back.onrender.com
+► Deploy Frontendhttps: https://el-buen-comer-back.onrender.com/
 
 Tecnologías necesarias:
 * React
