@@ -5,7 +5,7 @@ const crearPedido = async (req, res) => {
   try {
 
     let pedido = new Pedido(req.body);
-    console.log(pedido);
+    
 
     const pedId = await Pedido.findById(req.body._id);
 

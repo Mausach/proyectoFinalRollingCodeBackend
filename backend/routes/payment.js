@@ -6,7 +6,6 @@ const routerPayment = express.Router();
 
 routerPayment.post('/crear-orden', validarJWT, crearOrden);
 
-//routerPayment.get('/webhook', webHook);
 
 
 module.exports = routerPayment;

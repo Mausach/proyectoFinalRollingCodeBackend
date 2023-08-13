@@ -19,15 +19,14 @@ const crearUsuario = async (req, res) => {
             })
         }
         user = new Usuario(req.body);
-        console.log(user);
-        //encriptacion de contraseñas
+        
+        
         const salt = bcryptjs.genSaltSync(10);
         user.password = bcryptjs.hashSync(password, salt);
 
         await user.save();
 
-        //generar nuestro JWT
-        //se lo genera en el back y se guardara en el front en el localstorage
+        
         const payload = {
             id: user._id,
             name: user.name,
@@ -45,7 +44,6 @@ const crearUsuario = async (req, res) => {
             rol: user.rol,
             token,
             msg: 'el usuario se guardo correctamente',
-
         });
 
     } catch (error) {
@@ -88,7 +86,7 @@ const loginUsuario = async (req, res) => {
             });
         }
 
-        //generar nuestro JWT
+        
         const payload = {
             id: user._id,
             name: user.name,
@@ -164,8 +162,7 @@ const RestablecerPassword = async (req, res) => {
                 msg: "el correo electronico no es valido"
             })
         }
-
-        //encriptacion de contraseñas
+        
         const salt = bcryptjs.genSaltSync(10);
         user.password = bcryptjs.hashSync(password, salt);
 

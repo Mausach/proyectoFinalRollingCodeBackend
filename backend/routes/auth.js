@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const { validarCampos } = require('../Midelwares/validarCampos');
 const routerAuth = express.Router();
 
-//para crear usuario
+
 routerAuth.post('/new', [
     check("name", "el nombre es obligatorio").not().isEmpty(),
     check("email", "el email es obligatorio").not().isEmpty(),
@@ -14,9 +14,9 @@ routerAuth.post('/new', [
     validarCampos
 ], crearUsuario);
 
-//para logear usuario
+
 routerAuth.post('/login',
-    [ //cuando usamos varios midelwar van dentro de corchetes verifican que los campos existan y despues va recien el validar
+    [ 
 
         check("email", "el email es obligatorio").not().isEmpty(),
         check("password", "la pasword es obligatoria").not().isEmpty(),
@@ -25,16 +25,15 @@ routerAuth.post('/login',
     ], loginUsuario);
 
 
-//para enviar email
 routerAuth.post('/validar_email',
-    [ //cuando usamos varios midelwar van dentro de corchetes verifican que los campos existan y despues va recien el validar
+    [ 
 
         check("email", "el email es obligatorio").not().isEmpty(),
         validarCampos
 
     ], validarCorreo);
 
-//para restablecer la contraseña
+
 routerAuth.put('/Restablecer', [
 
     check("email", "el email es obligatorio").not().isEmpty(),

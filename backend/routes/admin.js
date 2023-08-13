@@ -10,7 +10,7 @@ const routerAdmin = express.Router();
 
 
 routerAdmin.post( 
-  '/new', validarJWTAdmin, [ //la ruta para crear un nuevo producto
+  '/new', validarJWTAdmin, [ 
 
   check("name", "el nombre es obligatorio").not().isEmpty(),
   check("precio", "el precio es obligatorio").not().isEmpty(),
@@ -18,8 +18,6 @@ routerAdmin.post(
   check("detalle", "el detalle es obligatorio").not().isEmpty(),
   check("categoria", "la categoria es obligatoria").not().isEmpty(),
   validarCampos,
-
-
 
 ], crearProducto
 );
@@ -27,7 +25,7 @@ routerAdmin.post(
 
 
 routerAdmin.put(
-  '/edit', validarJWTAdmin, [ //la ruta seria /admin/edit para editar productos
+  '/edit', validarJWTAdmin, [ 
 
   check("name", "el nombre es obligatorio").not().isEmpty(),
   check("precio", "el precio es obligatorio").not().isEmpty(),
@@ -36,14 +34,12 @@ routerAdmin.put(
   check("categoria", "la categoria es obligatoria").not().isEmpty(),
   validarCampos,
 
-
-
 ], editarProducto
 );
 
 routerAdmin.delete('/eliminar/:id', validarJWTAdmin, eliminarProducto);
 
-routerAdmin.get('/productos', cargarProducto);//no lleva validar token asi los usuarios no logueados puedan ver la tienda
+routerAdmin.get('/productos', cargarProducto);
 
 routerAdmin.get('/productos/aleatorios', cargarProducto_Aleatorio);
 
@@ -55,6 +51,4 @@ routerAdmin.put('/confirmar', validarJWTAdmin, confirmarPedido);
 
 routerAdmin.put('/Deshabilitar', validarJWTAdmin, inhabilitarUsuario);
 
-
-//aclaras que se exporta todo lo trabajado con router
 module.exports = routerAdmin;

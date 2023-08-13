@@ -3,13 +3,12 @@ const Usuario = require('../models/usuario-model');
 const Pedido = require('../models/pedidos-model')
 
 const crearProducto = async (req, res) => {
-    const { name } = req.body;//extrae los datos que enviamos desde el front
+    const { name } = req.body;
 
     try {
 
         let producto = new Producto(req.body);
-        console.log(producto);
-
+        
         let product = await Producto.findOne({ name })
 
         if (product) {
@@ -36,8 +35,7 @@ const crearProducto = async (req, res) => {
 };
 
 const editarProducto = async (req, res) => {
-    //aqui va la logica de editar producto
-
+    
     try {
         const productoEditar = await Producto.findById(req.body._id);
 
@@ -64,9 +62,7 @@ const editarProducto = async (req, res) => {
 };
 
 const eliminarProducto = async (req, res) => {
-
-    //aqui va la logica de eliminar producto
-
+    
     try {
         const productoEliminar = await Producto.findById(req.params.id);
 
@@ -76,7 +72,6 @@ const eliminarProducto = async (req, res) => {
                 msg: 'No existe un producto con este ID',
             });
         }
-
         await Producto.findByIdAndDelete(req.params.id);
 
         res.status(200).json({
@@ -154,15 +149,13 @@ const inhabilitarUsuario = async (req, res) => {
 const cargarProducto = async (req, res) => {
 
     try {
-
-        //el find sirve para recorrer en la base de dato todos los productos llevandose des esquema importado
+        
         const productos = await Producto.find();
 
         res.status(200).json({
             ok: true,
             msg: "productos cargados",
             productos,
-
         });
 
     } catch (error) {
@@ -171,21 +164,18 @@ const cargarProducto = async (req, res) => {
             msg: "contactese con el administrador",
         })
     }
-
 };
 
 const cargarProducto_Aleatorio = async (req, res) => {
 
     try {
-
-        //el find sirve para recorrer en la base de dato todos los productos llevandose des esquema importado
+        
         const productos = await Producto.aggregate([{ $sample: { size: 3 } }]);
 
         res.status(200).json({
             ok: true,
             msg: "productos cargados",
             productos,
-
         });
 
     } catch (error) {
@@ -199,14 +189,12 @@ const cargarProducto_Aleatorio = async (req, res) => {
 const cargarUsuarios = async (req, res) => {
 
     try {
-
         const usuarios = await Usuario.find();
 
         res.status(200).json({
             ok: true,
             msg: "usuarios cargados",
             usuarios,
-
         });
 
     } catch (error) {
@@ -220,15 +208,13 @@ const cargarUsuarios = async (req, res) => {
 const cargarPedidos = async (req, res) => {
 
     try {
-
-        //el find sirve para recorrer en la base de dato todos los productos llevandose des esquema importado
+        
         const pedidos = await Pedido.find();
 
         res.status(200).json({
             ok: true,
             msg: "pedidos cargados",
             pedidos,
-
         });
 
     } catch (error) {
@@ -237,7 +223,6 @@ const cargarPedidos = async (req, res) => {
             msg: "contactese con el administrador",
         })
     }
-
 };
 
 module.exports = {

@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-//se encarga de ver que el tokene ste vigente o expiro
+
 const validarJWT = (req, res, next) => {
-	//x-token headers
+	
 	const token = req.header('x-token');
 
 	if (!token) {
