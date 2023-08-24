@@ -1,5 +1,5 @@
 const express = require('express');
-const { crearProducto, editarProducto, eliminarProducto, cargarProducto, cargarUsuarios, cargarPedidos, confirmarPedido, inhabilitarUsuario, cargarProducto_Aleatorio } = require('../controllers/admin');
+const { crearProducto, editarProducto, eliminarProducto, cargarProducto, cargarUsuarios, cargarPedidos, confirmarPedido, inhabilitarUsuario, cargarProducto_Aleatorio, habilitarUsuario } = require('../controllers/admin');
 
 const { check } = require('express-validator');
 const { validarCampos } = require('../Midelwares/validarCampos');
@@ -50,5 +50,7 @@ routerAdmin.get('/pedidos', validarJWTAdmin, cargarPedidos);
 routerAdmin.put('/confirmar', validarJWTAdmin, confirmarPedido);
 
 routerAdmin.put('/Deshabilitar', validarJWTAdmin, inhabilitarUsuario);
+
+routerAdmin.put('/Habilitar', validarJWTAdmin, habilitarUsuario);
 
 module.exports = routerAdmin;

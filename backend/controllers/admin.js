@@ -145,6 +145,34 @@ const inhabilitarUsuario = async (req, res) => {
     }
 };
 
+const habilitarUsuario = async (req, res) => {
+
+    try {
+        const usuarioInactivo = await Usuario.findById(req.body._id);
+
+        if (!usuarioInactivo) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'No existe ningun usuario con este Id',
+            });
+        }
+
+        usuarioInactivo.estado = 'activo';
+
+        await usuarioInactivo.save();
+
+        res.status(200).json({
+            ok: true,
+            msg: 'usuario habilitado',
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'hable con el administrador',
+        });
+    }
+};
 
 const cargarProducto = async (req, res) => {
 
@@ -234,5 +262,6 @@ module.exports = {
     cargarPedidos,
     confirmarPedido,
     inhabilitarUsuario,
+    habilitarUsuario,
     cargarProducto_Aleatorio
 };
